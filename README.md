@@ -13,7 +13,8 @@ The `ocf:heartbeat:ClusterMon` resource can monitor the cluster status and trigg
 
 At least it seems that SLES15 has dropped the mail-to option from crm_mon. So we need to write a workaround around that using a little helper script :-(
 
-SLES12+SLES15 and a helper script (crm_mail_agent.sh):
+### SLES12+SLES15 and a helper script 
+(crm_mail_agent.sh)
 
     primitive rsc_ClusterMon ocf:pacemaker:ClusterMon \
       params user=root update=10000 pidfile="/crm_scripts/crm_monitor/crmMon.pid" \
@@ -24,6 +25,15 @@ SLES12+SLES15 and a helper script (crm_mail_agent.sh):
       meta target-role=Started
 
 This package/file is hosted on <https://github.com/roseswe/ClusterMon>
+
+### SLES11 and maybe other distros 
+(Feedback highly appreciated)
+
+    primitive rsc_ClusterMon ocf:pacemaker:ClusterMon \
+        params user=root update=30 extra_options="--mail-to=root" \
+        op monitor on-fail=restart interval=60
+        clone ClusterMon-clone rsc_ClusterMon \
+        meta target-role=Started
 
 
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab: 
