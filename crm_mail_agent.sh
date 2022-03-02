@@ -1,6 +1,6 @@
 #!/bin/bash
 # vim:set fileencoding=utf8 fileformat=unix filetype=shell tabstop=2 expandtab:
-# @(#)$Header: /home/cvs/AddSourceCode/suse/ClusterMon/crm_mail_agent.sh,v 1.6 2022/03/02 14:12:51 ralph Exp $
+# @(#)$Id: crm_mail_agent.sh,v 1.7 2022/03/02 14:37:41 ralph Exp $
 # SLES15 and SLES12 dropped the --mail-to option in crm_mon, so we have to emulate this with this script
 
 # Example: /crm_scripts/crm_monitor/crm_mail_agent.sh
