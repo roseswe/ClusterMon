@@ -1,19 +1,22 @@
 
-# ClusterMon for Generic Alerting 
+# ClusterMon Wrapper for Generic Alerting 
 
-ocf_heartbeat_ClusterMon (7) - Runs crm_mon in the background, recording the cluster status (events) to an HTML file.
+This project is a wrapper for ClusterMon 
 
-A Pacemaker cluster is an event driven system. In this context, an event is a resource failure or configuration change (not exhaustive). 
+From the man page:  ocf_heartbeat_ClusterMon (7) - Runs crm_mon in the background, recording the cluster status (events) to an HTML file.
+
 
 ## Technical Details
 
-ClusterMon parameter and details can be found in the man page, under <http://linux-ha.org/doc/man-pages/re-ra-ClusterMon.html> or with crm:
+A Pacemaker cluster is an event driven system. In this context, an event is a resource failure or configuration change (not exhaustive). 
+
+ClusterMon resource agent parameter and details can be found in the man page ocf_heartbeat_ClusterMon (7), under <http://linux-ha.org/doc/man-pages/re-ra-ClusterMon.html>, on github <https://github.com/ClusterLabs/resource-agents/blob/main/heartbeat/ClusterMon> or with crm:
 
     crm(live)ra# info ClusterMon
 
 The `ocf:heartbeat:ClusterMon` resource can monitor the cluster status and triggers alerts on each cluster event. This resource runs crm_mon in the background at regular intervals (configurable) and uses crm_mon capabilities to send emails (SMTP), SNMP traps or to execute an external program via the extra_options parameter. It works by using crm_mon in the background, which is a binary that provides a summary of cluster’s current state. This binary has a couple options to send email (SMTP) or traps (SNMP) on any transition to a chosen recipient. Therefore you need a crm_mon binary that supports sending SNMP or SMTP!
 
-## No more mail support! Helper script for sending mail
+## No more mail support in ClusterMon! New helper script for sending mail
 
 At least it seems that SLES15 has dropped the mail-to option from crm_mon. So we need to write a workaround around that is using a little helper script (and filter script) :-(
 
