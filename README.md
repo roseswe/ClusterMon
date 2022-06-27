@@ -1,5 +1,5 @@
 
-# ClusterMon for Alterting
+# ClusterMon for Generic Alerting 
 
 ocf_heartbeat_ClusterMon (7) - Runs crm_mon in the background, recording the cluster status (events) to an HTML file.
 
