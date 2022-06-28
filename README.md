@@ -1,14 +1,13 @@
 
-# ClusterMon Wrapper for Generic Alerting 
+# ClusterMon Wrapper for Generic Alerting
 
-This project is a wrapper for ClusterMon 
+This project is a wrapper for ClusterMon
 
 From the man page:  ocf_heartbeat_ClusterMon (7) - Runs crm_mon in the background, recording the cluster status (events) to an HTML file.
 
-
 ## Technical Details
 
-A Pacemaker cluster is an event driven system. In this context, an event is a resource failure or configuration change (not exhaustive). 
+A Pacemaker cluster is an event driven system. In this context, an event is a resource failure or configuration change (not exhaustive).
 
 ClusterMon resource agent parameter and details can be found in the man page ocf_heartbeat_ClusterMon (7), under <http://linux-ha.org/doc/man-pages/re-ra-ClusterMon.html>, on github <https://github.com/ClusterLabs/resource-agents/blob/main/heartbeat/ClusterMon> or with crm:
 
@@ -35,6 +34,8 @@ ClusterMon must run on all cluster nodes, therefore we define it as a clone reso
     clone ClusterMon-clone rsc_ClusterMon \
       meta target-role=Started
 
+NOTE:  Changing the shell script (e.g. crm_mail_agent.sh) will be executed the next monitor interval with your changes. So you can edit it on the fly.
+
 This package/file is hosted on <https://github.com/roseswe/ClusterMon>
 
 ### SLES11 and maybe other distros
@@ -49,4 +50,4 @@ This package/file is hosted on <https://github.com/roseswe/ClusterMon>
         meta target-role=Started
 
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
-@(#)$Id: README.md,v 1.2 2022/04/06 11:13:07 ralph Exp $  -->
+@(#)$Id: README.md,v 1.5 2022/06/28 04:50:43 ralph Exp $  -->
