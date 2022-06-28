@@ -7,8 +7,8 @@ logger -t "ClusterMon-Easy" "${CRM_notify_node} ${CRM_notify_rsc} \
   ${CRM_notify_task} ${CRM_notify_desc} ${CRM_notify_rc} \
   ${CRM_notify_target_rc} ${CRM_notify_status} ${CRM_notify_recipient}";
 
-# this will append to to local logfile
-echo "ClusterMon-Easy:::$(date),${CRM_notify_node},${CRM_notify_rsc},${CRM_notify_task},${CRM_notify_desc},${CRM_notify_rc},${CRM_notify_target_rc},${CRM_notify_status},${CRM_notify_recipient}:::" >> /root/cmeasy_log.txt
+# this will "echo" append to a local logfile
+echo "ClusterMon-Easy:::$(date +%Y%m%d-%H%M%S),${CRM_notify_node},${CRM_notify_rsc},${CRM_notify_task},${CRM_notify_desc},${CRM_notify_rc},${CRM_notify_target_rc},${CRM_notify_status},${CRM_notify_recipient}:::" >> /root/cmeasy_log.txt
 
 exit;
 
