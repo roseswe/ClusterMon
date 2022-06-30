@@ -2,6 +2,7 @@
 # vim:set fileencoding=utf8 fileformat=unix filetype=shell tabstop=2 expandtab:
 # @(#)$Id: crm_mail_agent.sh,v 1.7 2022/03/02 14:37:41 ralph Exp $
 # SLES15 and SLES12 dropped the --mail-to option in crm_mon, so we have to emulate this with this script
+# also this script only logs critical events, where the original mail-to option more or less spams you.
 
 # Example: /crm_scripts/crm_monitor/crm_mail_agent.sh
 # this resolves to
@@ -29,6 +30,7 @@ SUBJ="${CRM_notify_node}: ${CRM_notify_rsc} ${CRM_notify_desc} at $(date) "
 echo "$(date) - ${CRM_notfiy_node} ${CRM_notify_task}: ${CRM_notify_rsc} ${CRM_notify_desc} ${CRM_notify_rc}" >> /crm_scripts/crm_monitor/crmstate.log
 
 # if [[ unsuccessful monitor operation aka not running ]]
+
 if [[ ${CRM_notify_rc} != 0 && ${CRM_notify_task} == "monitor" && ${CRM_notify_desc} == "not running"  ]]  ## Couldn't parse this if expression. Fix to allow more checks.
 then
 
@@ -42,18 +44,19 @@ then
         echo "To: $RECEIVER "
         echo "MIME-Version: 1.0"
         echo "Content-Type: multipart/alternative; "
-        echo ' boundary="ClusterMonitoring by CustomerChangeMe_A2PP"'
+        echo ' boundary="ClusterMonitoring by CustomerChangeMe"'
         echo "Subject: $SUBJ"
         echo ""
         echo "This is a MIME-encapsulated message"
         echo ""
-        echo "--ClusterMonitoring by CustomerChangeMe_A2PP"
+        echo "--ClusterMonitoring by CustomerChangeMe"
         echo "Content-Type: text/html"
         echo ""
         echo "$HTMLTEXT"
     ) | sendmail -t
 
     # else if [[ successful monitor operation of already failed resource]]
+    # ClusterMon-Easy:::20220630-111057,ralph152,rsc_ClusterMon,monitor,OK,0,0,0,:::
 elif [[ ${CRM_notify_task} == "monitor" && ${CRM_notify_desc} == "OK" &&  -f /crm_scripts/crm_monitor/crm_current_error ]]
 then
 
@@ -84,11 +87,11 @@ then
             echo "To: $RECEIVER "
             echo "MIME-Version: 1.0"
             echo "Content-Type: multipart/alternative; "
-            echo ' boundary="ClusterMonitoring by CustomerChangeMe_A2PP"'
+            echo ' boundary="ClusterMonitoring by CustomerChangeMe"'
             echo "Subject: $SUBJ"
             echo ""
             echo "This is a MIME-encapsulated message"
-            echo "--ClusterMonitoring by CustomerChangeMe_A2PP"
+            echo "--ClusterMonitoring by CustomerChangeMe"
             echo "Content-Type: text/html"
             echo ""
             echo "$HTMLTEXT"

@@ -1,12 +1,12 @@
-# ClusterMon Wrapper for Generic Alerting
+# ClusterMon Wrapper for Generic Pacemaker Cluster Alerting
 
-This project is a set of different (shellscript) wrappers for the ClusterMon resoucre agent adressing different use cases
+This project is a set of different (shellscript) wrappers for the ClusterMon resource agent addressing different use cases to be used as a blue print.
 
 From the man page:  ocf_heartbeat_ClusterMon (7) - Runs crm_mon in the background, recording the cluster status (events) to an HTML file.
 
 ## Technical Details
 
-A Pacemaker cluster is an event driven system. In this context, an event is a resource failure or configuration change (not exhaustive).
+A pacemaker cluster is an event driven system. In this context, an event is a resource failure or configuration change (not exhaustive).
 
 ClusterMon resource agent parameter and details can be found in the man page ocf_heartbeat_ClusterMon (7) [older]/ocf_pacemaker_ClusterMon (7), under <http://linux-ha.org/doc/man-pages/re-ra-ClusterMon.html>, on github <https://github.com/ClusterLabs/resource-agents/blob/main/heartbeat/ClusterMon> or with crm:
 
@@ -53,7 +53,7 @@ Note:         -W, --watch-fencing
 
 ## No more mail support in ClusterMon! New helper script for sending mail
 
-At least it seems that SLES15 has dropped the mail-to option from crm_mon. So we need to write a workaround around that is using a little helper script (and filter script) :-(
+At least it seems that SLES12 has dropped the mail-to option from crm_mon. So we need to write a workaround around that is using a little helper script (and filter script) :-(
 
 ### SLES12+SLES15 and a helper script
 
@@ -99,7 +99,7 @@ At least valid for pacemaker 1.x and 2.0
     CRM_notify_task         The operation that caused the status change
     CRM_notify_target_rc    The expected return code of the operation
 
-Source:  <https://clusterlabs.org/pacemaker/doc/deprecated/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-notification-external.html>
+Source:  <https://clusterlabs.org/pacemaker/doc/deprecated/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-notification-external.html>  and <https://fossies.org/linux/pacemaker/lib/common/alerts.c>
 
 Tested with SLES12SP5, SLES15SP2 and SLES15SP4
 
@@ -111,5 +111,6 @@ Tested with SLES12SP5, SLES15SP2 and SLES15SP4
     Pacemaker 2.1.2+20211124.ada5c3b36-150400.2.43
     Written by Andrew Beekhof
 
+/*end*/
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
 @(#)$Id: README.md,v 1.5 2022/06/28 04:50:43 ralph Exp $  -->
