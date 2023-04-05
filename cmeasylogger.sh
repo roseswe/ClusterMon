@@ -24,4 +24,4 @@ echo "ClusterMon-Easy:::$(date +%Y%m%d-%H%M%S),${CRM_notify_node},${CRM_notify_r
 
 
 ## vim:set fileencoding=utf8 fileformat=unix filetype=shell tabstop=2 expandtab:
-## @(#)$Id: cmeasylogger.sh,v 1.2 2022/06/28 04:50:44 ralph Exp $
+## @(#)$Id: cmeasylogger.sh,v 1.3 2022/06/30 18:00:12 ralph Exp $

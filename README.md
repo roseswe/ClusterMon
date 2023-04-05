@@ -113,4 +113,4 @@ Tested with SLES12SP5, SLES15SP2 and SLES15SP4
 
 /*end*/
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
-@(#)$Id: README.md,v 1.5 2022/06/28 04:50:43 ralph Exp $  -->
+@(#)$Id: README.md,v 1.6 2022/06/30 18:00:12 ralph Exp $  -->
