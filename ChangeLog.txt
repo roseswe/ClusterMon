@@ -1,0 +1,40 @@
+Changelog
+=========
+
+
+(unreleased)
+------------
+
+Changes
+~~~~~~~
+- Small changes (CVS keywords) [roseswe]
+- Enhancements done day3/Hackweek. [roseswe]
+- Deltas from day 2. [roseswe]
+- Readme - Added more details. [Ralph Roth]
+- Prettyfied and enhanced the ReadMe. [roseswe]
+- Added SLES11 example. [Ralph Roth]
+
+Fix
+~~~
+- MarkDown errors fixed chg: added CVS keywords. [roseswe]
+
+Other
+~~~~~
+- Update README and scripts for ClusterMon-Easy: rename resource, add
+  examples, and enhance documentation. [roseswe]
+- Add: Added failcount, enhance documentation. [roseswe]
+- Add: ClusterMon EasyLogger, first version. [roseswe]
+- Update README.md. [Ralph Roth]
+
+  Small enhancements after feedback from "Ago"
+- Update README.md. [Ralph Roth]
+
+  typo fixed
+- Add: Added ChangeLog. [roseswe]
+
+
+1.7.0 (2022-03-02)
+------------------
+- Add: Initial creaton of README.md. [Ralph Roth]
+
+
