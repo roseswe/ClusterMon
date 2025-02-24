@@ -1,6 +1,6 @@
 #!/bin/bash
 # ClusterMon Wrapper Script, easiest example
-#
+#  @(#) $Id: cmeasylogger.sh,v 1.4 2025/02/24 16:25:12 ralph Exp $
 
 # this will log to system syslog (e.g. /var/log/messages)
 logger -t "ClusterMon-Easy:" "${CRM_notify_node} ${CRM_notify_rsc} \
@@ -24,4 +24,4 @@ echo "ClusterMon-Easy:::$(date +%Y%m%d-%H%M%S),${CRM_notify_node},${CRM_notify_r
 
 
 ## vim:set fileencoding=utf8 fileformat=unix filetype=shell tabstop=2 expandtab:
-## @(#)$Id: cmeasylogger.sh,v 1.3 2022/06/30 18:00:12 ralph Exp $
+# End
