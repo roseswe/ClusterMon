@@ -1,4 +1,6 @@
-# ClusterMon Wrapper for Generic Pacemaker Cluster Alerting
+# ReadMe for ClusterMon Wrapper for Generic Pacemaker Cluster Alerting
+
+https://github.com/roseswe/ClusterMon
 
 This project is a set of different (shellscript) wrappers for the ClusterMon resource agent addressing different use cases to be used as a blue print.
 
@@ -12,9 +14,40 @@ ClusterMon resource agent parameter and details can be found in the man page ocf
 
     # crm ra info ClusterMon
 
+````
+# crm  ra info ClusterMon
+Runs crm_mon in the background, recording the cluster status to an HTML file (ocf:heartbeat:ClusterMon)
+
+This is a ClusterMon Resource Agent.
+It outputs current cluster status to the html.
+
+Parameters (*: required, []: default):
+
+user (string, [root]):
+    The user we want to run crm_mon as
+
+update (integer, [15000]): Update interval
+    How frequently should we update the cluster status
+
+extra_options (string): Extra options
+    Additional options to pass to crm_mon.  Eg. -n -r
+
+pidfile (string, [/run/resource-agents/ClusterMon_ClusterMon.pid]): PID file
+    PID file location to ensure only one instance is running
+
+htmlfile (string, [/run/resource-agents/ClusterMon_ClusterMon.html]): HTML output
+    Location to write HTML output to.
+
+Operations' defaults (advisory minimum):
+
+    start         timeout=20s
+    stop          timeout=20s
+    monitor       depth=0 timeout=20s interval=10s
+````
+
 The `ocf:heartbeat:ClusterMon` resource can monitor the cluster status and triggers alerts on each cluster event. This resource runs crm_mon in the background at regular intervals (configurable) and uses crm_mon capabilities to send emails (SMTP), SNMP traps or to execute an external program via the extra_options parameter. It works by using crm_mon in the background, which is a binary that provides a summary of cluster’s current state. This binary has a couple options to send email (SMTP) or traps (SNMP) on any transition to a chosen recipient. Therefore you need a crm_mon binary that supports sending SNMP or SMTP, if not see workaround script `crm_mail_agent.sh`!
 
-On SUSE SLES15 `crm_mon` comes with the package pacemaker-cli.
+On SUSE SLES15 `crm_mon` comes with the package pacemaker-cli. NOTE: SUSE changed from pacemaker-cli-1 to pacemaker-cli-2 between SLE 12 and SLE 15
 
 ## ClusterMon Easy Logger Script
 
@@ -27,6 +60,8 @@ The pacemaker primitive definition and clone set to use this script
             op monitor on-fail=restart interval=60
     clone ClusterMon-clone rsc_ClusterMonEL \
             meta target-role=Started
+
+In the context of the ClusterMon resource configuration for Pacemaker, the parameter update=10000 specifies the update interval in milliseconds for the monitoring script. This means that the monitoring script will update its status every 10 seconds. Adjust to your needs...
 
 Copy and chmod +x the cmeasylogger.sh file to all nodes :-)
 
@@ -65,12 +100,18 @@ Other example on SLES15SP5 KVM Cluster
     ClusterMon-Easy:::20250224-170717,kvm01cs,rsc_ClusterMonEL,start,OK,0,0,0,,0,6664:::
     ClusterMon-Easy:::20250224-170717,kvm01cs,rsc_ClusterMonEL,monitor,pending,193,0,-1,,0,6666:::
     ClusterMon-Easy:::20250224-170717,kvm01cs,rsc_ClusterMonEL,monitor,OK,0,0,0,,0,6680:::
+
+We move the rsc_Dummy01 resource
+
     ClusterMon-Easy:::20250224-170734,kvm02cs,rsc_Dummy01,monitor,pending,193,0,-1,,0,6862:::
     ClusterMon-Easy:::20250224-170734,kvm02cs,rsc_Dummy01,monitor,OK,0,0,0,,0,6877:::
     ClusterMon-Easy:::20250224-170734,kvm02cs,rsc_Dummy01,start,OK,0,0,0,,0,6860:::
     ClusterMon-Easy:::20250224-170734,kvm01cs,rsc_Dummy01,stop,pending,193,0,-1,,0,6830:::
     ClusterMon-Easy:::20250224-170734,kvm02cs,rsc_Dummy01,start,pending,193,0,-1,,0,6851:::
     ClusterMon-Easy:::20250224-170734,kvm01cs,rsc_Dummy01,stop,OK,0,0,0,,0,6841:::
+
+We stopped and started the rsc_vd_cirros resource
+
     ClusterMon-Easy:::20250224-171211,kvm01cs,rsc_vd_cirros,monitor,not running,7,0,0,,1,9077:::
     ClusterMon-Easy:::20250224-171211,kvm01cs,rsc_vd_cirros,stop,pending,193,0,-1,,1,9082:::
     ClusterMon-Easy:::20250224-171211,kvm01cs,rsc_vd_cirros,stop,OK,0,0,0,,1,9087:::
@@ -118,12 +159,16 @@ Note: crm node fence kvm01cs
 
     crm_mon -d -i 5 --output-as=html --output-to=/tmp/cmel.html -E "/root/bin/cmeasylogger.sh" --watch-fencing
 
-Note:         -W, --watch-fencing
+> Note:         -W, --watch-fencing
               Listen for fencing events. For use with --external-agent.
 
 ## No more mail support in ClusterMon! New helper script for sending mail
 
 At least it seems that SLES12 has dropped the mail-to option from crm_mon. So we need to write a workaround around that is using a little helper script (and filter script) :-(
+
+    # rpm -q --changelog pacemaker-cli | grep -m1 SMTP
+        - tools: remove crm_mon SMTP support (fate#324508)
+
 
 ### SLES12+SLES15 and a helper script
 
@@ -171,7 +216,7 @@ At least valid for pacemaker 1.x and 2.0
 
 Source:  <https://clusterlabs.org/pacemaker/doc/deprecated/en-US/Pacemaker/1.1/html/Pacemaker_Explained/s-notification-external.html>  and <https://fossies.org/linux/pacemaker/lib/common/alerts.c>
 
-Tested with SLES12SP5, SLES15SP2 and SLES15SP4
+Tested with SLES12SP5, SLES15SP2, SLES15SP4, SLES15SP5
 
     # crm_mon --version
     # SLES15SP2
@@ -187,4 +232,4 @@ Tested with SLES12SP5, SLES15SP2 and SLES15SP4
 
 /*end*/
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
-@(#)$Id: README.md,v 1.7 2025/02/24 16:25:12 ralph Exp $  -->
+@(#)$Id: README.md,v 1.9 2025/02/25 20:53:30 ralph Exp $  -->
