@@ -229,7 +229,38 @@ Tested with SLES12SP5, SLES15SP2, SLES15SP4, SLES15SP5
     Pacemaker 2.1.5+20221208.a3f44794f-150500.6.20.1
     Written by Andrew Beekhof and the Pacemaker project contributors
 
+## Too complex? Need something easy?
+
+### The mailto cluster script
+
+The **mailto** script in the context of **SUSE Linux Enterprise Server (SLES) 15** refers to a specialized **Resource Agent** (RA) within the High Availability (HA) Extension. Its primary job is to provide automated email notifications to administrators whenever a cluster event occurs—most commonly a **resource takeover** or a failover between nodes. In SLES 15, this is typically managed through the Cluster Resource Management Shell (`crmsh`).
+
+#### Core Functionality
+
+The `mailto` agent is a "Basic" cluster script used to:
+
+* **Notify Recipients:** Send an email to one or more addresses when a service moves from one node to another.
+* **Provide Status:** It helps admins track the health of the cluster without constantly monitoring the Hawk2 web interface or running `crm status`.
+
+You can view the details and parameters of this script directly from the command line on your SLES node:
+
+```bash
+# View the script details
+crm script show mailto
+
+```
+#### Configuration Example
+
+To set up a mailto resource in your cluster, you would typically define a "primitive" resource. Below is a conceptual example of how to add it via the `crm` shell:
+
+```bash
+crm configure primitive admin_email ocf:heartbeat:MailTo \
+    params email="admin@example.com" \
+    params subject="Cluster Alert: Resource Failover" \
+    op monitor interval=120s
+
+```
 
 /*end*/
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
-@(#)$Id: README.md,v 1.9 2025/02/25 20:53:30 ralph Exp $  -->
+@(#)$Id: README.md,v 1.11 2026/02/26 11:37:46 ralph Exp $  -->
