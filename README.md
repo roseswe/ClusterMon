@@ -51,9 +51,10 @@ On SUSE SLES15 `crm_mon` comes with the package pacemaker-cli. NOTE: SUSE change
 
 ## ClusterMon Easy Logger Script
 
-This is a very primitive script that simply output cluster changes to syslog (via logger) and into a local text file.
+>[!NOTE]
+This chapter is written for SUSE HA solution, based on pacemaker. It was tested with SLES12 and SLES15
 
-The pacemaker primitive definition and clone set to use this script
+This is a very primitive script that simply output cluster changes to syslog (via logger) and into a local text file. The pacemaker primitive definition and clone set to use this script
 
     primitive rsc_ClusterMonEL ocf:pacemaker:ClusterMon \
             params user=root update=10000 htmlfile="/tmp/cmeasylogger.html" extra_options="-E /root/bin/cmeasylogger.sh -W" \
@@ -159,8 +160,8 @@ Note: crm node fence kvm01cs
 
     crm_mon -d -i 5 --output-as=html --output-to=/tmp/cmel.html -E "/root/bin/cmeasylogger.sh" --watch-fencing
 
-> Note:         -W, --watch-fencing
-              Listen for fencing events. For use with --external-agent.
+>[!NOTE]
+-W, --watch-fencing - Listen for fencing events. For use with --external-agent.
 
 ## No more mail support in ClusterMon! New helper script for sending mail
 
@@ -185,7 +186,7 @@ crm_mail_agent.sh - example CIB (must be adapted to your environment):
     clone ClusterMon-clone rsc_ClusterMon \
       meta target-role=Started
 
-NOTE:  Changing the shell script (e.g. crm_mail_agent.sh) will be executed the next monitor interval with your changes. So you can edit it on the fly.
+>[!NOTE]  Changing the shell script (e.g. crm_mail_agent.sh): It will be executed the next monitor interval with your changes. So you can edit it on the fly.
 
 This package/file is hosted on <https://github.com/roseswe/ClusterMon>
 
@@ -199,6 +200,17 @@ This package/file is hosted on <https://github.com/roseswe/ClusterMon>
 
     clone ClusterMon-clone rsc_ClusterMon \
         meta target-role=Started
+
+### RHEL 7.9 Example
+
+Here we write a status file to /var/www/html/status.html. Semanage/chown/chmod the HTML file after creation of the resource.
+
+```
+pcs resource create rsc_mon_status ocf:pacemaker:ClusterMon \
+    htmlfile="/var/www/html/status.html" \
+    update="10000" \
+    --group g_app01
+```
 
 ## Available Variables for crm_mon
 
@@ -228,6 +240,10 @@ Tested with SLES12SP5, SLES15SP2, SLES15SP4, SLES15SP5
     # SLES15SP5
     Pacemaker 2.1.5+20221208.a3f44794f-150500.6.20.1
     Written by Andrew Beekhof and the Pacemaker project contributors
+    # SLES15SP7
+    Pacemaker 2.1.10+20250718.fdf796ebc8-150700.3.3.1
+    Written by Andrew Beekhof and the Pacemaker project contributors
+
 
 ## Too complex? Need something easy?
 
