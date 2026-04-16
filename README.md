@@ -231,7 +231,7 @@ Source:  <https://clusterlabs.org/pacemaker/doc/deprecated/en-US/Pacemaker/1.1/h
 Tested with SLES12SP5, SLES15SP2, SLES15SP4, SLES15SP5
 
     # crm_mon --version
-    
+
     # SLES15SP2
     Pacemaker 2.0.4+20200616.2deceaa3a-3.15.1
     Written by Andrew Beekhof
@@ -245,6 +245,10 @@ Tested with SLES12SP5, SLES15SP2, SLES15SP4, SLES15SP5
     Pacemaker 2.1.10+20250718.fdf796ebc8-150700.3.3.1
     Written by Andrew Beekhof and the Pacemaker project contributors
 
+    # RHEL/MLS 7.9
+    Pacemaker 1.1.23-1.el7_9.1
+    # RHEL/MLS 9.7
+    Pacemaker 2.1.10-1.1.el9_7
 
 ## Too complex? Need something easy?
 
@@ -280,4 +284,4 @@ crm configure primitive admin_email ocf:heartbeat:MailTo \
 
 /*end*/
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
-@(#)$Id: README.md,v 1.12 2026/04/16 07:18:26 ralph Exp $  -->
+@(#)$Id: README.md,v 1.14 2026/04/16 13:13:49 ralph Exp $  -->
