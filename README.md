@@ -280,4 +280,4 @@ crm configure primitive admin_email ocf:heartbeat:MailTo \
 
 /*end*/
 <!-- vim:set fileencoding=utf8 fileformat=unix filetype=gfm tabstop=2 expandtab:
-@(#)$Id: README.md,v 1.11 2026/02/26 11:37:46 ralph Exp $  -->
+@(#)$Id: README.md,v 1.12 2026/04/16 07:18:26 ralph Exp $  -->
