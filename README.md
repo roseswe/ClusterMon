@@ -1,6 +1,6 @@
 # ReadMe for ClusterMon Wrapper for Generic Pacemaker Cluster Alerting
 
-https://github.com/roseswe/ClusterMon
+This package/files are hosted at  <https://github.com/roseswe/ClusterMon>
 
 This project is a set of different (shellscript) wrappers for the ClusterMon resource agent addressing different use cases to be used as a blue print.
 
@@ -186,9 +186,9 @@ crm_mail_agent.sh - example CIB (must be adapted to your environment):
     clone ClusterMon-clone rsc_ClusterMon \
       meta target-role=Started
 
->[!NOTE]  Changing the shell script (e.g. crm_mail_agent.sh): It will be executed the next monitor interval with your changes. So you can edit it on the fly.
+>[!NOTE]
+>Changing the shell script (e.g. crm_mail_agent.sh): It will be executed the next monitor interval with your changes. So you can edit it on the fly.
 
-This package/file is hosted on <https://github.com/roseswe/ClusterMon>
 
 ### SLES11 and maybe other distros, Get Mail
 
@@ -231,6 +231,7 @@ Source:  <https://clusterlabs.org/pacemaker/doc/deprecated/en-US/Pacemaker/1.1/h
 Tested with SLES12SP5, SLES15SP2, SLES15SP4, SLES15SP5
 
     # crm_mon --version
+    
     # SLES15SP2
     Pacemaker 2.0.4+20200616.2deceaa3a-3.15.1
     Written by Andrew Beekhof
